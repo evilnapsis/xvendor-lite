@@ -11,7 +11,12 @@
 </div>
 		<h1><i class="glyphicon glyphicon-stats"></i> Inventario de Productos</h1>
 		<div class="clearfix"></div>
-
+<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Inventario</h3>
+</div>
+<div class="box-body">
 
 <?php
 $page = 1;
@@ -107,6 +112,9 @@ for($i=0;$i<$npaginas;$i++){
 }
 
 ?>
-<br><br><br><br><br><br><br><br><br><br>
+
+	</div>
+</div>
+
 	</div>
 </div>

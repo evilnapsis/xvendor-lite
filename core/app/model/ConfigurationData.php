@@ -2,14 +2,14 @@
 class ConfigurationData {
 	public static $tablename = "configuration";
 
+	public $id;
+	public $short;
+	public $name;
+	public $kind;
+	public $val;
 
-	public function ConfigurationData(){
+	public function __construct(){
 		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->image = "";
-		$this->password = "";
-		$this->created_at = "NOW()";
 	}
 
 	public function add(){

@@ -2,14 +2,15 @@
 class CategoryData {
 	public static $tablename = "category";
 
+	public $id;
+	public $image;
+	public $name;
+	public $description;
+	public $created_at;
 
-
-	public function CategoryData(){
+	public function __construct(){
 		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
 		$this->image = "";
-		$this->password = "";
 		$this->created_at = "NOW()";
 	}
 

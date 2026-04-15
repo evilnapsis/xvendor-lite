@@ -5,6 +5,11 @@
 </div>
 		<h1>Categorias</h1>
 <br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Categorias</h3>
+</div>
+<div class="box-body">
 		<?php
 
 		$users = CategoryData::getAll();
@@ -21,12 +26,15 @@
 			foreach($users as $user){
 				?>
 				<tr>
-				<td><?php echo $user->name." ".$user->lastname; ?></td>
+				<td><?php echo $user->name; ?></td>
 				<td style="width:130px;"><a href="index.php?view=editcategory&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a> <a href="index.php?view=delcategory&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs">Eliminar</a></td>
 				</tr>
 				<?php
 
 			}
+			?>
+			</table>
+			<?php
 
 
 
@@ -36,6 +44,8 @@
 
 
 		?>
+	</div>
+</div>
 
 
 	</div>

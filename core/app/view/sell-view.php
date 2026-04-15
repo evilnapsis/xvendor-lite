@@ -1,6 +1,12 @@
 <div class="row">
 	<div class="col-md-12">
 	<h1>Venta</h1>
+
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Venta</h3>
+</div>
+<div class="box-body">
 	<p><b>Buscar producto por nombre o por codigo:</b></p>
 		<form id="searchp">
 		<div class="row">
@@ -14,7 +20,11 @@
 		</div>
 		</form>
 <div id="show_search_results"></div>
+</div>
+</div>
+
 	</div>
+</div>
 <script>
 //jQuery.noConflict();
 
@@ -41,14 +51,18 @@ $(document).ready(function(){
 });
 </script>
 
+<div class="row">
 <div class="col-md-12">
 
 <!--- Carrito de compras :) -->
 <?php if(isset($_SESSION["cart"])):
 $total = 0;
 ?>
-<h2>Lista de venta</h2>
 <div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Lista de venta</h3>
+</div>
+<div class="box-body">
 <table class="table table-bordered table-hover">
 <thead>
 	<th style="width:30px;">Codigo</th>
@@ -75,8 +89,14 @@ $product = ProductData::getById($p["product_id"]);
 <?php endforeach; ?>
 </table>
 </div>
+</div>
+
 <form method="post" class="form-horizontal" id="processsell" action="index.php?view=processsell">
-<h2>Resumen</h2>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Resumen</h3>
+</div>
+<div class="box-body">
 <div class="form-group">
     <label for="inputEmail1" class="col-lg-2 control-label">Cliente</label>
     <div class="col-lg-10">
@@ -107,7 +127,6 @@ $clients = PersonData::getClients();
 
   <div class="row">
 <div class="col-md-6 col-md-offset-6">
-<div class="box box-primary">
 <table class="table table-bordered">
 <tr>
 	<td><p>Subtotal</p></td>
@@ -123,7 +142,6 @@ $clients = PersonData::getClients();
 </tr>
 
 </table>
-</div>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <div class="checkbox">
@@ -138,11 +156,16 @@ $clients = PersonData::getClients();
       <div class="checkbox">
         <label>
 		<a href="index.php?view=clearcart" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i> Cancelar</a>
-        <button class="btn btn-lg btn-primary"><i class="glyphicon glyphicon-usd"></i><i class="glyphicon glyphicon-usd"></i> Finalizar Venta</button>
+        <button class="btn btn-lg btn-primary"><i class="glyphicon glyphicon-usd"></i> Finalizar Venta</button>
         </label>
       </div>
     </div>
   </div>
+</div>
+</div>
+</div>
+</div>
+
 </form>
 <script>
 	$("#processsell").submit(function(e){
@@ -161,9 +184,4 @@ $clients = PersonData::getClients();
 </script>
 </div>
 </div>
-</div>
-<br><br><br><br><br>
 <?php endif; ?>
-
-</div>
-</div>

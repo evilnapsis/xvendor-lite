@@ -2,7 +2,10 @@
 class OperationTypeData {
 	public static $tablename = "operation_type";
 
-	public function OperationTypeData(){
+	public $id;
+	public $name;
+
+	public function __construct(){
 		$this->name = "";
 	}
 

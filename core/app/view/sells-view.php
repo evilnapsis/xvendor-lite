@@ -2,7 +2,12 @@
 	<div class="col-md-12">
 		<h1><i class='glyphicon glyphicon-shopping-cart'></i> Lista de Ventas</h1>
 		<div class="clearfix"></div>
-
+<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Ventas</h3>
+</div>
+<div class="box-body">
 
 <?php
 
@@ -11,7 +16,6 @@ $products = SellData::getSells();
 if(count($products)>0){
 
 	?>
-<br>
 <table class="table table-bordered table-hover	">
 	<thead>
 		<th></th>
@@ -27,11 +31,11 @@ if(count($products)>0){
 		<a href="index.php?view=onesell&id=<?php echo $sell->id; ?>" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"></i></a></td>
 
 		<td>
-
 <?php
 $operations = OperationData::getAllProductsBySellId($sell->id);
 echo count($operations);
 ?>
+		</td>
 		<td>
 
 <?php
@@ -66,6 +70,7 @@ $total= $sell->total-$sell->discount;
 }
 
 ?>
-<br><br><br><br><br><br><br><br><br><br>
+	</div>
+</div>
 	</div>
 </div>

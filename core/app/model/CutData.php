@@ -2,9 +2,12 @@
 class CutData {
 	public static $tablename = "cut";
 
-	public function CutData(){
+	public $id;
+	public $finished_at;
+	public $created_at;
+
+	public function __construct(){
 		$this->finished_at = "";
-		$this->user_id = "";
 		$this->created_at = "NOW()";
 	}
 

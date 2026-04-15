@@ -3,6 +3,11 @@
 	<div class="col-md-12">
 	<h1>Editar Proveedor</h1>
 	<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Editar Proveedor</h3>
+</div>
+<div class="box-body">
 		<form class="form-horizontal" method="post" id="addproduct" action="index.php?view=updateprovider" role="form">
 
 
@@ -48,5 +53,7 @@
     </div>
   </div>
 </form>
+</div>
+</div>
 	</div>
 </div>

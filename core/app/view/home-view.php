@@ -78,6 +78,3 @@ foreach($products as $product){
         <!-- ./col -->
       </div>
       <!-- /.row -->
-
-
-</div>

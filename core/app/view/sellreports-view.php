@@ -1,11 +1,15 @@
 <?php
 $clients = PersonData::getClients();
 ?>
-<section class="content">
 <div class="row">
 	<div class="col-md-12">
 	<h1>Reportes de Ventas</h1>
 
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Filtros</h3>
+</div>
+<div class="box-body">
 						<form>
 						<input type="hidden" name="view" value="sellreports">
 <div class="row">
@@ -31,31 +35,9 @@ $clients = PersonData::getClients();
 </div>
 
 </div>
-<!--
-<br>
-<div class="row">
-<div class="col-md-4">
-
-<select name="mesero_id" class="form-control">
-	<option value="">--  MESEROS --</option>
-	<?php foreach($meseros as $p):?>
-	<option value="<?php echo $p->id;?>"><?php echo $p->name;?></option>
-	<?php endforeach; ?>
-</select>
-
-</div>
-
-<div class="col-md-4">
-
-<select name="operation_type_id" class="form-control">
-	<option value="1">VENTA</option>
-</select>
-
-</div>
-
-</div>
--->
 </form>
+</div>
+</div>
 
 	</div>
 	</div>
@@ -79,6 +61,11 @@ $clients = PersonData::getClients();
 			 ?>
 
 			 <?php if(count($operations)>0):?>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Resultados</h3>
+</div>
+<div class="box-body">
 			 	<?php $supertotal = 0; ?>
 <table class="table table-bordered">
 	<thead>
@@ -102,7 +89,8 @@ $supertotal+= ($operation->total-$operation->discount);
 
 </table>
 <h1>Total de ventas: $ <?php echo number_format($supertotal,2,'.',','); ?></h1>
-
+</div>
+</div>
 			 <?php else:
 			 // si no hay operaciones
 			 ?>
@@ -130,4 +118,3 @@ $supertotal+= ($operation->total-$operation->discount);
 </div>
 
 <br><br><br><br>
-</section>

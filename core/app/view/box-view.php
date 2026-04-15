@@ -6,14 +6,18 @@
 </div>
 		<h1><i class='fa fa-archive'></i> Caja</h1>
 		<div class="clearfix"></div>
-
+<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Caja</h3>
+</div>
+<div class="box-body">
 
 <?php
 $products = SellData::getSellsUnBoxed();
 if(count($products)>0){
 $total_total = 0;
 ?>
-<br>
 <table class="table table-bordered table-hover	">
 	<thead>
 		<th></th>
@@ -24,14 +28,14 @@ $total_total = 0;
 	<?php foreach($products as $sell):?>
 
 	<tr>
-		<td style="width:30px;">
+		<td style="width:30px;"></td>
 
 		<td>
-
 <?php
 $operations = OperationData::getAllProductsBySellId($sell->id);
 echo count($operations);
 ?>
+		</td>
 		<td>
 
 <?php
@@ -63,6 +67,9 @@ $total=0;
 	</div>
 
 <?php } ?>
-<br><br><br><br><br><br><br><br><br><br>
+
+	</div>
+</div>
+
 	</div>
 </div>

@@ -1,4 +1,5 @@
-
+<div class="row">
+	<div class="col-md-12">
 <h1>Resumen de Venta</h1>
 
 <?php if(isset($_GET["id"]) && $_GET["id"]!=""):?>
@@ -8,6 +9,11 @@ $operations = OperationData::getAllProductsBySellId($_GET["id"]);
 $total = 0;
 ?>
 
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Detalles</h3>
+</div>
+<div class="box-body">
 <table class="table table-bordered">
 <?php if($sell->person_id!=""):
 $client = $sell->getPerson();
@@ -51,9 +57,13 @@ $user = $sell->getUser();
 	}
 	?>
 </table>
-<br><br>
+</div>
+</div>
+
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-4 col-md-offset-8">
+<div class="box box-primary">
+<div class="box-body">
 <table class="table table-bordered">
 	<tr>
 		<td><h4>Descuento:</h4></td>
@@ -65,11 +75,16 @@ $user = $sell->getUser();
 	</tr>
 	<tr>
 		<td><h4>Total:</h4></td>
-		<td><h4>$ <?php echo number_format($total-	$sell->discount,2,'.',','); ?></h4></td>
+		<td><h4>$ <?php echo number_format($total-$sell->discount,2,'.',','); ?></h4></td>
 	</tr>
 </table>
+</div>
+</div>
 </div>
 </div>
 <?php else:?>
 	501 Internal Error
 <?php endif; ?>
+
+	</div>
+</div>

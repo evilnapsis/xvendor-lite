@@ -3,24 +3,12 @@
 	<a href="index.php?view=newuser" class="btn btn-default pull-right"><i class='glyphicon glyphicon-user'></i> Nuevo Usuario</a>
 		<h1>Lista de Usuarios</h1>
 <br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Usuarios</h3>
+</div>
+<div class="box-body">
 		<?php
-		/*
-		$u = new UserData();
-		print_r($u);
-		$u->name = "Agustin";
-		$u->lastname = "Ramos";
-		$u->email = "evilnapsis@gmail.com";
-		$u->password = sha1(md5("l00lapal00za"));
-		$u->add();
-
-
-		$f = $u->createForm();
-		print_r($f);
-		echo $f->label("name")." ".$f->render("name");
-		*/
-		?>
-		<?php
-
 		$users = UserData::getAll();
 		if(count($users)>0){
 			// si hay usuarios
@@ -65,7 +53,8 @@
 
 
 		?>
-
+	</div>
+</div>
 
 	</div>
 </div>

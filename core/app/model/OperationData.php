@@ -2,11 +2,16 @@
 class OperationData {
 	public static $tablename = "operation";
 
-	public function OperationData(){
-		$this->name = "";
+	public $id;
+	public $product_id;
+	public $q;
+	public $operation_type_id;
+	public $sell_id;
+	public $created_at;
+
+	public function __construct(){
 		$this->product_id = "";
 		$this->q = "";
-		$this->cut_id = "";
 		$this->operation_type_id = "";
 		$this->created_at = "NOW()";
 	}

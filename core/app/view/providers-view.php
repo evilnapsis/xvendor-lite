@@ -1,19 +1,19 @@
 <div class="row">
 	<div class="col-md-12">
 <div class="btn-group pull-right">
-	<a href="index.php?view=newclient" class="btn btn-default"><i class='fa fa-smile-o'></i> Nuevo Cliente</a>
+	<a href="index.php?view=newprovider" class="btn btn-default"><i class='fa fa-truck'></i> Nuevo Proveedor</a>
 
 </div>
-		<h1>Directorio de Clientes</h1>
+		<h1>Directorio de Proveedores</h1>
 <br>
 <div class="box box-primary">
 <div class="box-header">
-	<h3 class="box-title">Clientes</h3>
+	<h3 class="box-title">Proveedores</h3>
 </div>
 <div class="box-body">
 		<?php
 
-		$users = PersonData::getClients();
+		$users = PersonData::getProviders();
 		if(count($users)>0){
 			// si hay usuarios
 			?>
@@ -35,8 +35,8 @@
 				<td><?php echo $user->email1; ?></td>
 				<td><?php echo $user->phone1; ?></td>
 				<td style="width:130px;">
-				<a href="index.php?view=editclient&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a>
-				<a href="index.php?view=delclient&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs">Eliminar</a>
+				<a href="index.php?view=editprovider&id=<?php echo $user->id;?>" class="btn btn-warning btn-xs">Editar</a>
+				<a href="index.php?view=delprovider&id=<?php echo $user->id;?>" class="btn btn-danger btn-xs">Eliminar</a>
 				</td>
 				</tr>
 				<?php
@@ -49,7 +49,7 @@
 
 
 		}else{
-			echo "<p class='alert alert-danger'>No hay clientes</p>";
+			echo "<p class='alert alert-danger'>No hay proveedores</p>";
 		}
 
 

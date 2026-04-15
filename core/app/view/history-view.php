@@ -90,6 +90,11 @@ $ototal = -1*OperationData::GetOutputQYesF($product->id);
 <div class="row">
 	<div class="col-md-12">
 		<?php if(count($operations)>0):?>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Historial</h3>
+</div>
+<div class="box-body">
 			<table class="table table-bordered table-hover">
 			<thead>
 			<th></th>
@@ -117,8 +122,9 @@ $ototal = -1*OperationData::GetOutputQYesF($product->id);
 			</tr>
 			<?php endforeach; ?>
 			</table>
+</div>
+</div>
 		<?php endif; ?>
 	</div>
 </div>
-
 <?php endif; ?>

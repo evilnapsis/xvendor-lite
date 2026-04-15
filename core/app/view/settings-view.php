@@ -10,6 +10,11 @@ $configurations = ConfigurationData::getAll();
 
 <?php if(count($configurations)>0):?>
 <br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Configuracion</h3>
+</div>
+<div class="box-body">
 <table class="table table-bordered">
 <thead>
 	<th>Clave</th>
@@ -28,6 +33,8 @@ $configurations = ConfigurationData::getAll();
 </tr>
 <?php endforeach;?>
 </table>
+</div>
+</div>
 
 <?php endif; ?>
 

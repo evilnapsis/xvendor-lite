@@ -1,16 +1,22 @@
 <?php
 class UserData {
 	public static $tablename = "user";
+	public $id;
+	public $name;
+	public $lastname;
+	public $username;
+	public $email;
+	public $password;
+	public $image;
+	public $is_active;
+	public $is_admin;
+	public $created_at;
 
 
 
-	public function Userdata(){
+	public function __construct(){
 		$this->name = "";
-		$this->lastname = "";
-		$this->email = "";
-		$this->image = "";
-		$this->password = "";
-		$this->created_at = "NOW()";
+
 	}
 
 	public function add(){

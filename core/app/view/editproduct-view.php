@@ -5,12 +5,17 @@ $categories = CategoryData::getAll();
 if($product!=null):
 ?>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
 	<h1><?php echo $product->name ?> <small>Editar Producto</small></h1>
   <?php if(isset($_COOKIE["prdupd"])):?>
     <p class="alert alert-info">La informacion del producto se ha actualizado exitosamente.</p>
   <?php setcookie("prdupd","",time()-18600); endif; ?>
-	<br><br>
+	<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Editar Producto</h3>
+</div>
+<div class="box-body">
 		<form class="form-horizontal" method="post" id="addproduct" enctype="multipart/form-data" action="index.php?view=updateproduct" role="form">
 
   <div class="form-group">
@@ -98,8 +103,8 @@ if($product!=null):
     </div>
   </div>
 </form>
-
-<br><br><br><br><br><br><br><br><br>
+</div>
+</div>
 	</div>
 </div>
 <?php endif; ?>

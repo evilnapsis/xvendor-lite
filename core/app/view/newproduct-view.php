@@ -5,6 +5,11 @@ $categories = CategoryData::getAll();
 	<div class="col-md-12">
 	<h1>Nuevo Producto</h1>
 	<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Nuevo Producto</h3>
+</div>
+<div class="box-body">
 		<form class="form-horizontal" method="post" enctype="multipart/form-data" id="addproduct" action="index.php?view=addproduct" role="form">
 
   <div class="form-group">
@@ -75,7 +80,8 @@ $categories = CategoryData::getAll();
     </div>
   </div>
 </form>
-
+</div>
+</div>
 	</div>
 </div>
 

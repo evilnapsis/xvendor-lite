@@ -6,6 +6,12 @@
 </div>
 		<h1>Lista de Productos</h1>
 		<div class="clearfix"></div>
+<br>
+<div class="box box-primary">
+<div class="box-header">
+	<h3 class="box-title">Productos</h3>
+</div>
+<div class="box-body">
 
 
 <?php
@@ -113,6 +119,8 @@ for($i=0;$i<$npaginas;$i++){
 }
 
 ?>
-<br><br><br><br><br><br><br><br><br><br>
+
+	</div>
+</div>
 	</div>
 </div>

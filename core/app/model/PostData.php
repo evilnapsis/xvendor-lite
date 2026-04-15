@@ -2,6 +2,15 @@
 class PostData {
 	public static $tablename = "slide";
 
+	public $id;
+	public $title;
+	public $content;
+	public $image;
+	public $is_public;
+	public $theme_id;
+	public $user_id;
+	public $created_at;
+
 	public  function createForm(){
 		$form = new lbForm();
 	    $form->addField("title",array('type' => new lbInputText(array("label"=>"Nombre")),"validate"=>new lbValidator(array())));
@@ -11,13 +20,13 @@ class PostData {
 
 	}
 
-	public function PostData(){
+	public function __construct(){
 		$this->title = "";
 		$this->content = "";
 		$this->image = "";
-		$this->theme_id = "";
-				$this->user_id = "";
+		$this->user_id = "";
 		$this->is_public = "0";
+		$this->theme_id = "";
 		$this->created_at = "NOW()";
 	}
 
