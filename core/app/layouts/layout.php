@@ -1,240 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <title>XVendor Lite | Dashboard</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.4 -->
-    <link href="plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome Icons -->
-    <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="plugins/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/dist/css/skins/skin-blue-light.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-          <script src="plugins/jquery/jquery-2.1.4.min.js"></script>
-<script src="plugins/morris/raphael-min.js"></script>
-<script src="plugins/morris/morris.js"></script>
-  <link rel="stylesheet" href="plugins/morris/morris.css">
-  <link rel="stylesheet" href="plugins/morris/example.css">
-          <script src="plugins/jspdf/jspdf.min.js"></script>
-          <script src="plugins/jspdf/jspdf.plugin.autotable.js"></script>
-          <?php if(isset($_GET["view"]) && $_GET["view"]=="sell"):?>
-<script type="text/javascript" src="plugins/jsqrcode/llqrcode.js"></script>
-<script type="text/javascript" src="plugins/jsqrcode/webqr.js"></script>
-          <?php endif;?>
-
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="XVendor Lite - Sistema de Ventas sin Inventario">
+    <meta name="author" content="Evilnapsis">
+    <title>XVendor Lite - Dashboard</title>
+    <!-- Vendors styles-->
+    <link rel="stylesheet" href="assets/vendor/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="assets/css/vendors/simplebar.css">
+    <!-- Main styles for this application-->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom-inventio.css" rel="stylesheet">
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/select2/select2.min.css">
+    <script type="text/javascript" src="assets/vendor/sweetalert/sweetalert2.all.min.js"></script>
   </head>
-
-  <body class="<?php if(isset($_SESSION["user_id"]) || isset($_SESSION["client_id"])):?>  skin-blue-light sidebar-mini <?php else:?>login-page<?php endif; ?>" >
-    <div class="wrapper">
-      <!-- Main Header -->
-      <?php if(isset($_SESSION["user_id"]) || isset($_SESSION["client_id"])):?>
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="./" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>X</b>V</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>XVENDOR</b>LITE</span>
+  <body>
+    <?php if(isset($_SESSION["user_id"])):
+      $curr_user = UserData::getById($_SESSION["user_id"]);
+    ?>
+    <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
+      <div class="sidebar-header border-bottom">
+        <a href="./index.php?view=home" class="sidebar-brand text-decoration-none text-white">
+          <span class="sidebar-brand-full" style="font-size:20px; font-weight: bold;"><i class="bi bi-shop me-2"></i>XVENDOR<span class="text-primary">LITE</span></span>
+          <span class="sidebar-brand-narrow">XV</span>
         </a>
-
-        <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
+        <button class="btn-close d-lg-none" type="button" data-coreui-dismiss="offcanvas" data-coreui-theme="dark" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector(&quot;#sidebar&quot;)).toggle()"></button>
+      </div>
+      <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/home">
+            <i class="nav-icon bi bi-house"></i> Inicio
           </a>
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
+        </li>
 
-              <!-- User Account Menu -->
-              <li class="dropdown user user-menu">
-                <!-- Menu Toggle Button -->
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <!-- The user image in the navbar-->
-                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class=""><?php if(isset($_SESSION["user_id"]) ){ echo UserData::getById($_SESSION["user_id"])->name; 
+        <li class="nav-title">OPERACIONES</li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/pos">
+            <i class="nav-icon bi bi-calculator"></i> Vender POS
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/sells">
+            <i class="nav-icon bi bi-cart"></i> Ventas
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/alerts">
+            <i class="nav-icon bi bi-bell"></i> Alertas
+          </a>
+        </li>
 
-                  }?> <b class="caret"></b> </span>
+        <li class="nav-group">
+          <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon bi bi-folder"></i> Catálogos
+          </a>
+          <ul class="nav-group-items compact">
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/products"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/categories"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Categorías</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/clients"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Clientes</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/providers"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Proveedores</a></li>
+          </ul>
+        </li>
 
+        <li class="nav-group">
+          <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon bi bi-boxes"></i> Inventario
+          </a>
+          <ul class="nav-group-items compact">
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/inventory"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Inventario</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/repos"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Nueva Compra</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/purchases"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Compras</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/box"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Caja</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-group">
+          <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon bi bi-bar-chart"></i> Reportes
+          </a>
+          <ul class="nav-group-items compact">
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/reports/movements"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Movimientos</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/reports/sales"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Reporte de Ventas</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-group">
+          <a class="nav-link nav-group-toggle" href="#">
+            <i class="nav-icon bi bi-gear"></i> Administración
+          </a>
+          <ul class="nav-group-items compact">
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/users"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Usuarios</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/settings"><span class="nav-icon"><span class="nav-icon-bullet"></span></span> Ajustes</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="sidebar-footer border-top d-none d-md-flex">
+        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
+      </div>
+    </div>
+    <div class="wrapper d-flex flex-column min-vh-100">
+      <header class="header header-sticky p-0 mb-4 shadow-sm">
+        <div class="container-fluid border-bottom px-4">
+          <button class="header-toggler" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()" style="margin-inline-start: -14px;">
+            <i class="bi bi-list fs-3"></i>
+          </button>
+          
+          <ul class="header-nav ms-auto">
+          </ul>
+          <ul class="header-nav">
+            <li class="nav-item py-1">
+              <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-md bg-primary text-white d-flex align-items-center justify-content-center rounded-circle fw-bold">
+                  <?php echo substr($curr_user->name ?? '',0,1).substr($curr_user->lastname ?? '',0,1); ?>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end pt-0 shadow border-0">
+                <div class="dropdown-header bg-light text-body-secondary fw-semibold rounded-top mb-2">Mi Cuenta</div>
+                <div class="px-3 py-2">
+                  <div class="fw-bold"><?php echo $curr_user->name." ".$curr_user->lastname; ?></div>
+                  <div class="small text-muted"><?php echo $curr_user->is_admin ? "Administrador" : "Usuario"; ?></div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'); ?>/settings">
+                  <i class="bi bi-gear me-2"></i> Ajustes
                 </a>
-                <ul class="dropdown-menu">
-                  <!-- The user image in the menu -->
-                  <li class="">
-                      <a href="http://evilnapsis.com/" target="_blank" class="">Ir a Evilnapsis</a>
-                      <a href="http://evilnapsis.com/product/XVendor-max/" target="_blank" class="">Ver XVendor Max</a>
-                  </li>
-                  
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-right">
-                      <a href="./logout.php" class="btn btn-default btn-flat">Salir</a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <!-- Control Sidebar Toggle Button -->
-            </ul>
-          </div>
-        </nav>
+                <a class="dropdown-item" href="./logout.php">
+                  <i class="bi bi-box-arrow-right me-2 text-danger"></i> Cerrar sesión
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-<!--
-<div class="user-panel">
-            <div class="pull-left image">
-              <img src="1.jpg" class="img-circle" alt="User Image" />
-            </div>
-            <div class="pull-left info">
-              <p>Alexander Pierce</p>
-
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-          </div>
-          -->
-          <!-- Sidebar Menu -->
-          <ul class="sidebar-menu">
-            <li class="header">ADMINISTRACION</li>
-            <?php if(isset($_SESSION["user_id"])):?>
-                        <li><a href="./index.php?view=home"><i class='fa fa-home'></i> <span>Inicio</span></a></li>
-            <li><a href="./?view=sell"><i class='fa fa-usd'></i> <span>Vender</span></a></li>
-            <li><a href="./?view=sells"><i class='fa fa-shopping-cart'></i> <span>Ventas</span></a></li>
-            <li><a href="./?view=box"><i class='fa fa-cube'></i> <span>Caja</span></a></li>
-            <li><a href="./?view=products"><i class='fa fa-glass'></i> <span>Productos</span></a></li>
-
-            <li class="treeview">
-              <a href="#"><i class='fa fa-database'></i> <span>Catalogos</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="./?view=categories">Categorias</a></li>
-                <li><a href="./?view=clients">Clientes</a></li>
-                <li><a href="./?view=providers">Proveedores</a></li>
-              </ul>
-            </li>
-
-
-                        <li class="treeview">
-              <a href="#"><i class='fa fa-file-text-o'></i> <span>Reportes</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="./?view=reports">Productos</a></li>
-                <li><a href="./?view=sellreports">Ventas</a></li>
-              </ul>
-            </li>
-
-
-            <li class="treeview">
-              <a href="#"><i class='fa fa-cog'></i> <span>Administracion</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="./?view=users">Usuarios</a></li>
-                <li><a href="./?view=settings">Configuracion</a></li>
-              </ul>
-            </li>
-          <?php endif;?>
-
-          </ul><!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-    <?php endif;?>
-
-      <!-- Content Wrapper. Contains page content -->
-      <?php if(isset($_SESSION["user_id"]) || isset($_SESSION["client_id"])):?>
-      <div class="content-wrapper">
-      <div class="content">
-        <?php View::load("index");?>
+      <div class="body flex-grow-1">
+        <div class="container-fluid px-4">
+          <?php View::load("index"); ?>
         </div>
-      </div><!-- /.content-wrapper -->
-
-        <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.0
-        </div>
-        <strong>Copyright &copy; 2026 <a href="http://evilnapsis.com/" target="_blank">Evilnapsis</a></strong>
+      </div>
+      <footer class="footer px-4 border-top-0 bg-transparent text-muted small">
+        <div>XVendor Lite © 2026. Desarrollado por <a href="https://evilnapsis.com/" target="_blank" class="text-decoration-none">Evilnapsis</a></div>
+        <div class="ms-auto">v2.0</div>
       </footer>
-      <?php else:?>
-<div class="login-box">
-      <div class="login-logo">
-        <a href="./">XVENDOR<b>LITE</b></a>
-      </div><!-- /.login-logo -->
-      <div class="login-box-body">
-        <form action="./?action=processlogin" method="post">
-          <div class="form-group has-feedback">
-            <input type="text" name="username" required class="form-control" placeholder="Usuario"/>
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    </div>
+    <?php else:?>
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="card shadow-lg border-0">
+              <div class="card-body p-5">
+                <div class="text-center mb-4">
+                  <div class="display-1 text-primary mb-2"><i class="bi bi-shop"></i></div>
+                  <h1 class="h3 fw-bold">XVendor Lite</h1>
+                  <p class="text-muted">Sistema de Ventas</p>
+                </div>
+                <form method="post" action="./?action=processlogin">
+                  <div class="mb-3">
+                    <label class="form-label fw-bold">Usuario</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0"><i class="bi bi-person text-muted"></i></span>
+                      <input class="form-control border-start-0" name="username" required type="text" placeholder="Tu usuario o correo">
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-bold">Contraseña</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-white border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                      <input class="form-control border-start-0" name="password" required type="password" placeholder="Tu contraseña">
+                    </div>
+                  </div>
+                  <div class="d-grid mb-3">
+                    <button class="btn btn-primary btn-lg shadow-sm fw-bold" type="submit">Acceder</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <div class="form-group has-feedback">
-            <input type="password" name="password" required class="form-control" placeholder="Password"/>
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="row">
-
-            <div class="col-xs-12">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Acceder</button>
-            </div><!-- /.col -->
-          </div>
-        </form>
-      </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->  
-      <?php endif;?>
-
-
-    </div><!-- ./wrapper -->
-
-    <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 2.1.4 -->
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <!-- AdminLTE App -->
-    <script src="plugins/dist/js/app.min.js" type="text/javascript"></script>
-
-    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+    <!-- CoreUI and necessary plugins-->
+    <script src="assets/vendor/@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="assets/vendor/simplebar/js/simplebar.min.js"></script>
+    <script src="assets/vendor/chart.js/js/chart.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
+    <script src="assets/vendor/select2/select2.full.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $(".datatable").DataTable({
-          "language": {
-        "sProcessing":    "Procesando...",
-        "sLengthMenu":    "Mostrar _MENU_ registros",
-        "sZeroRecords":   "No se encontraron resultados",
-        "sEmptyTable":    "Ningún dato disponible en esta tabla",
-        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
-        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":   "",
-        "sSearch":        "Buscar:",
-        "sUrl":           "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst":    "Primero",
-            "sLast":    "Último",
-            "sNext":    "Siguiente",
-            "sPrevious": "Anterior"
-        },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        const urlParams = new URLSearchParams(window.location.search);
+        const view = urlParams.get('view');
+
+        if (view !== 'onesell' && view !== 'onere' && view !== 'sellpos' && view !== 'repos') {
+          $(".table:has(thead)").not(".no-datatable").DataTable({
+            "responsive": true,
+            "language": {
+              "url": "./vendors/datatables/esmx.json"
+            }
+          });
         }
-    }
-        });
+
+        // Initialize Select2 globally
+        if ($.fn.select2) {
+          $('.select2').each(function() {
+            $(this).select2({
+              width: '100%',
+              dropdownParent: $(this).parent()
+            });
+          });
+        }
+
+        // SweetAlert from Session
+        <?php if(isset($_SESSION["success"])): ?>
+          Swal.fire({
+            title: '¡Éxito!',
+            text: '<?php echo $_SESSION["success"]; ?>',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#5856d6'
+          });
+          <?php unset($_SESSION["success"]); ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["updated"])): ?>
+          Swal.fire({
+            title: '¡Éxito!',
+            text: '<?php echo $_SESSION["updated"]; ?>',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#5856d6'
+          });
+          <?php unset($_SESSION["updated"]); ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["deleted"])): ?>
+          Swal.fire({
+            title: '¡Éxito!',
+            text: '<?php echo $_SESSION["deleted"]; ?>',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#5856d6'
+          });
+          <?php unset($_SESSION["deleted"]); ?>
+        <?php endif; ?>
+
+        <?php if(isset($_SESSION["error"])): ?>
+          Swal.fire({
+            title: '¡Error!',
+            text: '<?php echo $_SESSION["error"]; ?>',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            timer: 4000,
+            timerProgressBar: true,
+            confirmButtonColor: '#d33'
+          });
+          <?php unset($_SESSION["error"]); ?>
+        <?php endif; ?>
       });
     </script>
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-          Both of these plugins are recommended to enhance the
-          user experience. Slimscroll is required when using the
-          fixed layout. -->
   </body>
 </html>
-

@@ -1,15 +1,17 @@
 <?php
+/**
+ * Modelo legacy para diapositivas y publicaciones.
+ */
 class PostData {
 	public static $tablename = "slide";
-
 	public $id;
 	public $title;
 	public $content;
 	public $image;
 	public $is_public;
-	public $theme_id;
-	public $user_id;
 	public $created_at;
+	public $user_id;
+
 
 	public  function createForm(){
 		$form = new lbForm();
@@ -26,7 +28,6 @@ class PostData {
 		$this->image = "";
 		$this->user_id = "";
 		$this->is_public = "0";
-		$this->theme_id = "";
 		$this->created_at = "NOW()";
 	}
 

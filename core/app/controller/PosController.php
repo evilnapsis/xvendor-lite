@@ -1,0 +1,73 @@
+<?php
+namespace App\Controller;
+
+use App\Service\CartService;
+use App\Service\SellService;
+use ViewEngine;
+use Req;
+
+/**
+ * Gestiona la interfaz del Punto de Venta (POS): búsqueda en vivo, carrito interactivo y cobro.
+ */
+class PosController {
+	private $cartService;
+	private $sellService;
+	private $baseFolder;
+
+	public function __construct() {
+		$this->cartService = new CartService();
+		$this->sellService = new SellService();
+		$this->baseFolder = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+	}
+
+	public function index() {
+		ViewEngine::render('pos/index.html.twig');
+	}
+
+	public function search() {
+		$term = Req::get('product', '');
+		$products = $term !== '' ? \ProductData::getLike($term) : [];
+
+		ViewEngine::render('pos/_search.html.twig', ['products' => $products, 'term' => $term]);
+	}
+
+	public function cartSummary() {
+		ViewEngine::render('pos/_cart.html.twig', [
+			'items' => $this->cartService->getItemsWithProducts(),
+			'total' => $this->cartService->getTotal(),
+			'clients' => \PersonData::getClients(),
+		]);
+	}
+
+	public function addToCart() {
+		$qty = (float)Req::post('q');
+		if ($qty <= 0) {
+			$qty = 1;
+		}
+		$this->cartService->addItem(Req::post('product_id'), $qty);
+		echo 'success';
+	}
+
+	public function removeFromCart() {
+		$this->cartService->removeItem(Req::post('product_id'));
+	}
+
+	public function clearCart() {
+		$this->cartService->clear();
+		header('Location: ' . $this->baseFolder . '/pos');
+	}
+
+	public function checkout() {
+		$result = $this->sellService->checkout($this->cartService->getCart(), Req::post(), $_SESSION['user_id']);
+
+		if (!$result['success']) {
+			$_SESSION['error'] = $result['error'];
+			header('Location: ' . $this->baseFolder . '/pos');
+			return;
+		}
+
+		$this->cartService->clear();
+		$_SESSION['success'] = 'Venta POS procesada correctamente';
+		header('Location: ' . $this->baseFolder . '/sell/' . $result['sell_id']);
+	}
+}

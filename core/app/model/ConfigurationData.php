@@ -1,20 +1,29 @@
 <?php
+/**
+ * Modelo para administrar variables y opciones globales de configuración en BD.
+ */
 class ConfigurationData {
 	public static $tablename = "configuration";
-
 	public $id;
 	public $short;
 	public $name;
 	public $kind;
 	public $val;
+	public $created_at;
+
+
 
 	public function __construct(){
 		$this->name = "";
+		$this->kind = "";
+		$this->val = "";
+		$this->short = "";
+		$this->created_at = "NOW()";
 	}
 
 	public function add(){
-		$sql = "insert into user (name,lastname,email,password,created_at) ";
-		$sql .= "value (\"$this->name\",\"$this->lastname\",\"$this->email\",\"$this->password\",$this->created_at)";
+		$sql = "insert into ".self::$tablename." (short,name,kind,val) ";
+		$sql .= "value (\"$this->short\",\"$this->name\",\"$this->kind\",\"$this->val\")";
 		Executor::doit($sql);
 	}
 
@@ -41,9 +50,6 @@ class ConfigurationData {
 		while($r = $query[0]->fetch_array()){
 			$data->id = $r['id'];
 			$data->name = $r['name'];
-			$data->lastname = $r['lastname'];
-			$data->email = $r['email'];
-			$data->password = $r['password'];
 			$data->created_at = $r['created_at'];
 			$found = $data;
 			break;
@@ -60,9 +66,6 @@ class ConfigurationData {
 			$array[$cnt] = new ConfigurationData();
 			$array[$cnt]->id = $r['id'];
 			$array[$cnt]->name = $r['name'];
-			$array[$cnt]->lastname = $r['lastname'];
-			$array[$cnt]->email = $r['email'];
-			$array[$cnt]->password = $r['password'];
 			$array[$cnt]->created_at = $r['created_at'];
 			$cnt++;
 		}
@@ -97,14 +100,28 @@ class ConfigurationData {
 			$array[$cnt] = new ConfigurationData();
 			$array[$cnt]->id = $r['id'];
 			$array[$cnt]->name = $r['name'];
-			$array[$cnt]->mail = $r['mail'];
-			$array[$cnt]->password = $r['password'];
 			$array[$cnt]->created_at = $r['created_at'];
 			$cnt++;
 		}
 		return $array;
 	}
 
+	public static function getByShort($short){
+		$sql = "select * from ".self::$tablename." where short=\"$short\"";
+		$query = Executor::doit($sql);
+		$found = null;
+		$data = new ConfigurationData();
+		while($r = $query[0]->fetch_array()){
+			$data->id = $r['id'];
+			$data->short = $r['short'];
+			$data->name = $r['name'];
+			$data->kind = $r['kind'];
+			$data->val = $r['val'];
+			$found = $data;
+			break;
+		}
+		return $found;
+	}
 
 }
 
